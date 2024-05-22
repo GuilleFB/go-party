@@ -65,8 +65,8 @@ func DeleteUserHandler(w http.ResponseWriter, r *http.Request)  {
 		return
 	}
 
-	db.DB.Unscoped().Delete(&user) // hard delete
-	// db.DB.Delete(&user) // soft delete
+	db.DB.Unscoped().Delete(&user) // Hard delete
+	// db.DB.Delete(&user) // Soft delete
 
 	w.WriteHeader(http.StatusOK)
 }
