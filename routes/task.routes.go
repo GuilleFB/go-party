@@ -3,6 +3,7 @@ package routes
 import (
 	"net/http"
 
+	"github.com/GuilleFB/go-party/handlers"
 	"github.com/gin-gonic/gin"
 )
 
@@ -11,9 +12,9 @@ func RoutesTask(rgin *gin.Engine) {
 		c.String(http.StatusOK, "pong")
 	})
 	
-	// rgin.GET("/tasks", handlers.GetTasksHandler)
-	// rgin.GET("/task/{id}", handlers.GetTaskHandler)
-	// rgin.POST("/task/create", handlers.PostTaskHandler)
-	// rgin.PATCH("/task/edit/{id}", handlers.EditTaskHandler)
-	// rgin.DELETE("/task/delete/{id}", handlers.DeleteTaskHandler)
+	rgin.GET("/gin/tasks", handlers.GetTasksHandler)
+	rgin.GET("/gin/task/:id", handlers.GetTaskHandler)
+	rgin.POST("/gin/task/create", handlers.CreateTaskHandler)
+	rgin.PATCH("/gin/task/edit/:id", handlers.EditTaskHandler)
+	// rgin.DELETE("/gin/task/delete/:id", handlers.DeleteTaskHandler)
 }

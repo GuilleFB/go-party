@@ -1,82 +1,93 @@
 package handlers
 
-// import (
-// 	"encoding/json"
-// 	"net/http"
+import (
+	"github.com/GuilleFB/go-party/db"
+	"github.com/GuilleFB/go-party/models"
+	"github.com/gin-gonic/gin"
+)
 
-// 	"github.com/GuilleFB/go-party/db"
-// 	"github.com/GuilleFB/go-party/models"
-// 	"github.com/gin-gonic/gin"
-// 	"github.com/gorilla/mux"
-// )
+func GetTasksHandler(c *gin.Context) {
+	var tasks []models.Task
 
-// func GetTasksHandler(c *gin.Context) {
-// 	var users []models.User
+	result := db.DB.Find(&tasks)
 
-// 	db.DB.Find(&users)
+	if result.Error != nil {
+		c.Status(400)
+		return
+	}
 
-// 	json.NewEncoder(w).Encode(&users)
+	c.JSON(200, gin.H{ // In Map format
+		"tasks": tasks,
+	})
 
-// }
+}
 
-// func GetTaskHandler(w http.ResponseWriter, r *http.Request) {
-// 	var user models.User
+func GetTaskHandler(c *gin.Context) {
+	var task models.Task
 
-// 	params := mux.Vars(r)
+	params := c.Param("id")
 
-// 	db.DB.First(&user, params["id"])
+	db.DB.First(&task, params)
 
-// 	if user.ID == 0 {
-// 		w.WriteHeader(http.StatusNotFound)
-// 		w.Write([]byte("User not found"))
-// 		return
-// 	}
+	if task.ID == 0 {
+		message := "Task not found"
+		c.String(404, message)
+		return
+	}
 
-// 	json.NewEncoder(w).Encode(&user)
-// }
+	c.JSON(200, task)
+}
 
-// func PostTaskHandler(w http.ResponseWriter, r *http.Request) {
-// 	var user models.User
+func CreateTaskHandler(c *gin.Context) {
+	var task models.Task
 
-// 	json.NewDecoder(r.Body).Decode(&user)
+	c.Bind(&task)
 
-// 	createdUser := db.DB.Create(&user)
+	createdTask := db.DB.Create(&task)
 
-// 	err := createdUser.Error
+	err := createdTask.Error
 
-// 	if err != nil {
-// 		w.WriteHeader(http.StatusBadRequest) // 400
-// 		w.Write([]byte(err.Error()))
-// 	}
+	if err != nil {
+		c.Status(400)
+		return
+	}
 
-// 	json.NewEncoder(w).Encode(&user)
+	c.JSON(200, task)
 
-// }
+}
 
-// func EditTaskHandler(w http.ResponseWriter, r *http.Request) {
-// 	var user models.User
+func EditTaskHandler(c *gin.Context) {
+	var task models.Task
 
-// 	params := mux.Vars(r)
-// 	userID := params["id"]
+	params := c.Param("id")
 
-// 	db.DB.First(&user, userID)
+	db.DB.First(&task, params)
 
-// 	if user.ID == 0 {
-// 		w.WriteHeader(http.StatusNotFound)
-// 		w.Write([]byte("User not found"))
-// 		return
-// 	}
+	if task.ID == 0 {
+		message := "Task not found"
+		c.String(404, message)
+		return
+	}
 
-// 	json.NewDecoder(r.Body).Decode(&user)
+	// var updates map[string]interface{}
+	// if err := c.BindJSON(&updates); err != nil {
+	//     c.String(400, "Invalid request body")
+	//     return
+	// }
 
-// 	// db.DB.Save(&user) // Save is a combination function. If save value does not contain primary key, it will execute Create, otherwise it will execute Update (with all fields).
-// 	db.DB.Model(&user).Updates(user) // https://gorm.io/docs/update.html#Updates-multiple-columns
+	c.BindJSON(&task)
 
-// 	json.NewEncoder(w).Encode(user)
+	db.DB.Model(&task).Updates(task)
 
-// 	w.WriteHeader(http.StatusOK)
-// 	w.Write([]byte("User successfully updated"))
-// }
+	// db.DB.Save(&user) // Save is a combination function. If save value does not contain primary key, it will execute Create, otherwise it will execute Update (with all fields).
+	// Actualizar solo los campos proporcionados en la solicitud
+	// if err := db.DB.Model(&task).Updates(task).Error; err != nil { // https://gorm.io/docs/update.html#Updates-multiple-columns
+	//     c.String(500, "Failed to update task")
+	//     return
+	// }
+
+	c.JSON(200, task)
+}
 
 // func DeleteTaskHandler(w http.ResponseWriter, r *http.Request) {
 // 	var user models.User
