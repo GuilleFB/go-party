@@ -68,7 +68,7 @@ Una vez que el contenedor esté en funcionamiento, puedes acceder a la API en `h
 ### Tareas 📋
 
 - **Crear tarea**: `POST /tasks`
-- **Obtener todas las tareas**: `GET /gin//tasks`
+- **Obtener todas las tareas**: `GET /gin/tasks`
 - **Obtener tarea por ID**: `GET /gin/task/:id`
 - **Actualizar tarea**: `PATCH /gin/tasks/edit/:id`
 - **Eliminar tarea**: `DELETE /gin/tasks/delete/:id`
