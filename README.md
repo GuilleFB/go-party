@@ -6,6 +6,7 @@
 
 - [**Go**](https://go.dev/doc/install) 🐹
 - [**Gorilla Mux**](https://github.com/gorilla/mux) 🦍 
+- [**Gin**](https://gin-gonic.com/docs/):cocktail:
 - [**GORM**](https://gorm.io/docs/) 🗃️
 - **PostgreSQL** 🐘
 - **Docker** 🐳
@@ -48,6 +49,7 @@ POSTGRES_DB=tu_basedatos
 ```bash
 docker compose up -d
 ```
+Con esto levantaremos la base de datos en PostgreSQL.
 
 ### 4. Acceder a la API 🚀
 
