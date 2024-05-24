@@ -8,6 +8,7 @@
 *.so
 *.dylib
 *.env
+.air.toml
 
 # Test binary, built with `go test -c`
 *.test
@@ -19,6 +20,7 @@
 # vendor/
 postgres
 postgres-data
+tmp
 
 # Go workspace file
 go.work
