@@ -78,7 +78,7 @@ Una vez que el contenedor esté en funcionamiento, puedes acceder a la API en `h
 
 ## 📬 Contacto
 
-Si tienes alguna pregunta o sugerencia, no dudes en comentar algo.
+Si tienes alguna pregunta o sugerencia, no dudes en comentar algo en las [discusiones](https://github.com/GuilleFB/go-party/discussions).
 
 ---
 
