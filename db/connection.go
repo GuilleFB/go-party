@@ -10,12 +10,12 @@ import (
 
 var DB *gorm.DB
 
-func DBConnection()  {
+func DBConnection() {
 	var error error
 	DB, error = gorm.Open(postgres.Open(initializers.VariablesDB()), &gorm.Config{})
 	if error != nil {
 		log.Fatal(error)
-	} else{
+	} else {
 		log.Println("Data Base Connected")
 	}
 }

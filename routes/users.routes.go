@@ -6,8 +6,7 @@ import (
 )
 
 func RoutesUsers(r *mux.Router)  {
-	r.HandleFunc("/", handlers.HomeHandler).Methods("GET")
-	r.HandleFunc("/users", handlers.GetUsersHandler).Methods("GET")
+	r.HandleFunc("/mux/users", handlers.GetUsersHandler).Methods("GET")
 	r.HandleFunc("/user/{id}", handlers.GetUserHandler).Methods("GET")
 	r.HandleFunc("/user/create", handlers.PostUserHandler).Methods("POST")
 	r.HandleFunc("/user/edit/{id}", handlers.EditUserHandler).Methods("PATCH")
