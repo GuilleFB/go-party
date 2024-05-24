@@ -60,18 +60,18 @@ Una vez que el contenedor esté en funcionamiento, puedes acceder a la API en `h
 ### Usuarios 👤
 
 - **Crear usuario**: `POST /user/create`
-- **Obtener todos los usuarios**: `GET /users`
-- **Obtener usuario por ID**: `GET /user/{id}`
-- **Actualizar usuario**: `PATCH /user/edit/{id}`
-- **Eliminar usuario**: `DELETE /user/delete/{id}`
+- **Obtener todos los usuarios**: `GET /mux/users`
+- **Obtener usuario por ID**: `GET /mux/user/{id}`
+- **Actualizar usuario**: `PATCH /mux/user/edit/{id}`
+- **Eliminar usuario**: `DELETE /mux/user/delete/{id}`
 
 ### Tareas 📋
 
 - **Crear tarea**: `POST /tasks`
-- **Obtener todas las tareas**: `GET /tasks`
-- **Obtener tarea por ID**: `GET /task/{id}`
-- **Actualizar tarea**: `PATCH /tasks/edit/:id`
-- **Eliminar tarea**: `DELETE /tasks/delete/:id`
+- **Obtener todas las tareas**: `GET /gin//tasks`
+- **Obtener tarea por ID**: `GET /gin/task/:id`
+- **Actualizar tarea**: `PATCH /gin/tasks/edit/:id`
+- **Eliminar tarea**: `DELETE /gin/tasks/delete/:id`
 
 
 ## 🤝 Contribuciones
