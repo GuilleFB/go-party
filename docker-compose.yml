@@ -1,6 +1,6 @@
 services:
   postgres:
-    image: postgres:16.2-alpine
+    image: postgres:16.3-alpine@sha256:e89da2c083a5405943408b6807cd1fd25dc9010c1294e30611b841778bedc653
     ports:
       - 5432:5432
     volumes:
