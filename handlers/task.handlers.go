@@ -89,21 +89,21 @@ func EditTaskHandler(c *gin.Context) {
 	c.JSON(200, task)
 }
 
-// func DeleteTaskHandler(w http.ResponseWriter, r *http.Request) {
-// 	var user models.User
+func DeleteTaskHandler(c *gin.Context) {
+	var task models.Task
 
-// 	params := mux.Vars(r)
+	params := c.Param("id")
 
-// 	db.DB.First(&user, params["id"])
+	db.DB.First(&task, params)
 
-// 	if user.ID == 0 {
-// 		w.WriteHeader(http.StatusNotFound)
-// 		w.Write([]byte("User not found"))
-// 		return
-// 	}
+	if task.ID == 0 {
+		message := "Task not found"
+		c.String(404, message)
+		return
+	}
 
-// 	db.DB.Unscoped().Delete(&user) // Hard delete https://gorm.io/docs/delete.html#Delete-permanently
-// 	// db.DB.Delete(&user) // Soft delete https://gorm.io/docs/delete.html#Soft-Delete
+	db.DB.Unscoped().Delete(&task) // Hard delete https://gorm.io/docs/delete.html#Delete-permanently
+	// db.DB.Delete(&user) // Soft delete https://gorm.io/docs/delete.html#Soft-Delete
 
-// 	w.WriteHeader(http.StatusOK)
-// }
+	c.String(200, "Taks Deleted")
+}
