@@ -16,5 +16,5 @@ func RoutesTask(rgin *gin.Engine) {
 	rgin.GET("/gin/task/:id", handlers.GetTaskHandler)
 	rgin.POST("/gin/task/create", handlers.CreateTaskHandler)
 	rgin.PATCH("/gin/task/edit/:id", handlers.EditTaskHandler)
-	// rgin.DELETE("/gin/task/delete/:id", handlers.DeleteTaskHandler)
+	rgin.DELETE("/gin/task/delete/:id", handlers.DeleteTaskHandler)
 }
