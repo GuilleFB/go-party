@@ -45,6 +45,7 @@ DB_PORT=tu_port
 POSTGRES_USER=tu_usuario
 POSTGRES_PASSWORD=tu_contraseña
 POSTGRES_DB=tu_basedatos
+SECRET=tu_secreto
 ```
 
 ### 3. Construir y ejecutar el contenedor Docker 🐳
