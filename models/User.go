@@ -11,4 +11,5 @@ type User struct {
 	Username  string `gorm:"uniqueIndex" json:"username"`
 	Password  string `json:"password"`
 	Tasks     []Task `json:"tasks"`
+	Token     string `json:"token"`
 }

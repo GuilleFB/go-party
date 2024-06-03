@@ -45,7 +45,9 @@ func Login(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "failed to generate token"})
 	}
 
-	c.JSON(200, gin.H{
+	db.DB.Model(&userFound).Select("Token").Updates(models.User{Token: token})
+
+	c.JSON(http.StatusCreated, gin.H{
 		"token": token,
 	})
 }
@@ -54,7 +56,7 @@ func GetUserProfile(c *gin.Context) {
 
 	user, _ := c.Get("currentUser")
 
-	c.JSON(200, gin.H{
+	c.JSON(http.StatusOK, gin.H{
 		"user": user,
 	})
 }

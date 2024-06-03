@@ -31,6 +31,8 @@ func GetUserHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusNotFound)
 		w.Write([]byte("User not found"))
 		return
+	} else {
+		w.WriteHeader(http.StatusFound)
 	}
 
 	db.DB.Model(&user).Association("Tasks").Find(&user.Tasks) // Displays in the user json all the tasks it has
@@ -42,7 +44,7 @@ func GetUserHandler(w http.ResponseWriter, r *http.Request) {
 func PostUserHandler(c *gin.Context) {
 	var UserInput models.User
 
-	// With Mux
+	// With Mux using net/http
 	// if err := json.NewDecoder(r.Body).Decode(&UserInput); err != nil {
 	// 	w.WriteHeader(http.StatusBadRequest)
 	// 	w.Write([]byte(err.Error()))
@@ -57,7 +59,7 @@ func PostUserHandler(c *gin.Context) {
 
 	db.DB.Where("username=?", UserInput.Username).Find(&UserInput)
 
-	// With Mux
+	// With Mux using net/http
 	// if UserInput.ID != 0 {
 	// 	w.WriteHeader(http.StatusBadRequest)
 	// 	w.Write([]byte("username already used"))
@@ -72,7 +74,7 @@ func PostUserHandler(c *gin.Context) {
 
 	passwordHash, errpassword := bcrypt.GenerateFromPassword([]byte(UserInput.Password), bcrypt.DefaultCost)
 
-	// With Mux
+	// With Mux using net/http
 	// if errpassword != nil {
 	// 	w.WriteHeader(http.StatusBadRequest)
 	// 	w.Write([]byte(errpassword.Error()))
@@ -85,7 +87,7 @@ func PostUserHandler(c *gin.Context) {
 		return
 	}
 
-	// With Mux
+	// With Mux using net/http
 	// json.NewDecoder(r.Body).Decode(&UserInput)
 
 	// Overwrite only the necessary fields, keeping first_name and last_name
@@ -102,7 +104,7 @@ func PostUserHandler(c *gin.Context) {
 
 	}
 
-	// With Mux
+	// With Mux using net/http
 	// if errcreateuser != nil {
 	// 	w.WriteHeader(http.StatusBadRequest) // 400
 	// 	w.Write([]byte(errcreateuser.Error()))
