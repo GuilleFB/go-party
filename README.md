@@ -15,7 +15,7 @@
 - **Docker** 🐳
 
 ## 🌟 Características
-
+- ✅ Signup, Login y Perfil de usuario con middleware que comprueba Autenticación :accessibility:
 - ✅ Crear, leer, actualizar y eliminar usuarios 👤
 - ✅ Crear, leer, actualizar y eliminar tareas 📋
 - ✅ Asociación entre usuarios y tareas 🔗
@@ -68,6 +68,13 @@ air
 Una vez que el contenedor esté en funcionamiento, puedes acceder a la API en `http://localhost:8000`.
 
 ## 🧩 Endpoints de la API
+
+
+### Usuarios 👤
+
+- **Signup**: `POST gin/auth/signup`
+- **Login**: `POST /gin/auth/login`
+- **Profile**: `GET /gin/user/profile`
 
 ### Usuarios 👤
 
