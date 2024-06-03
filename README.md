@@ -1,13 +1,16 @@
 # 🚀 CRUD de Usuarios y Tareas en GO 🎉
 
-¡Bienvenido/a a mi increíble proyecto de CRUD de Usuarios y Tareas! 🤩✨ Este proyecto está desarrollado en el maravilloso lenguaje de programación GO. 🐹🚀
+¡Bienvenido/a a mi proyecto de aprendizaje para un CRUD de Usuarios y Tareas! 🤩✨ Este proyecto está desarrollado en el lenguaje de programación GO. 🐹🚀
 
 ## 🛠️ Tecnologías Utilizadas
 
 - [**Go**](https://go.dev/doc/install) 🐹
 - [**Gorilla Mux**](https://github.com/gorilla/mux) 🦍 
-- [**Gin**](https://gin-gonic.com/docs/):cocktail:
+- [**Gin**](https://gin-gonic.com/docs/) 🍸
 - [**GORM**](https://gorm.io/docs/) 🗃️
+- [**JWT (JSON Web Tokens)**](https://golang-jwt.github.io/jwt/#supported-go-versions) 🔐
+- **Go Crypto** 🛡️
+- [**Air**](https://github.com/cosmtrek/air) ☁️ Live reload for Go apps
 - **PostgreSQL** 🐘
 - **Docker** 🐳
 
@@ -24,8 +27,8 @@ Sigue estos sencillos pasos para poner en marcha el proyecto en tu entorno local
 ### 1. Clonar el repositorio 📂
 
 ```bash
-git clone https://github.com/tu-usuario/tu-repo.git
-cd tu-repo
+git clone https://github.com/GuilleFB/go-party.git
+cd go-party
 ```
 
 ### 2. Configurar las variables de entorno 🛠️
@@ -51,6 +54,15 @@ docker compose up -d
 ```
 Con esto levantaremos la base de datos en PostgreSQL.
 
+### 4. Inicializar Air
+
+```bash
+go install github.com/cosmtrek/air@latest
+```
+```bash
+air
+```
+
 ### 4. Acceder a la API 🚀
 
 Una vez que el contenedor esté en funcionamiento, puedes acceder a la API en `http://localhost:8000`.
@@ -59,7 +71,7 @@ Una vez que el contenedor esté en funcionamiento, puedes acceder a la API en `h
 
 ### Usuarios 👤
 
-- **Crear usuario**: `POST /user/create`
+- **Crear usuario**: `POST /mux/user/create`
 - **Obtener todos los usuarios**: `GET /mux/users`
 - **Obtener usuario por ID**: `GET /mux/user/{id}`
 - **Actualizar usuario**: `PATCH /mux/user/edit/{id}`
@@ -67,7 +79,7 @@ Una vez que el contenedor esté en funcionamiento, puedes acceder a la API en `h
 
 ### Tareas 📋
 
-- **Crear tarea**: `POST /tasks`
+- **Crear tarea**: `POST /gin/tasks`
 - **Obtener todas las tareas**: `GET /gin/tasks`
 - **Obtener tarea por ID**: `GET /gin/task/:id`
 - **Actualizar tarea**: `PATCH /gin/tasks/edit/:id`
