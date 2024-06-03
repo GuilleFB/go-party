@@ -6,8 +6,11 @@
 
 - [**Go**](https://go.dev/doc/install) 🐹
 - [**Gorilla Mux**](https://github.com/gorilla/mux) 🦍 
-- [**Gin**](https://gin-gonic.com/docs/):cocktail:
+- [**Gin**](https://gin-gonic.com/docs/) 🍸
 - [**GORM**](https://gorm.io/docs/) 🗃️
+- [**JWT (JSON Web Tokens)**](https://golang-jwt.github.io/jwt/#supported-go-versions) 🔐
+- **Go Crypto** 🛡️
+- [**Air**](https://github.com/cosmtrek/air) ☁️ Live reload for Go apps
 - **PostgreSQL** 🐘
 - **Docker** 🐳
 
@@ -50,6 +53,15 @@ POSTGRES_DB=tu_basedatos
 docker compose up -d
 ```
 Con esto levantaremos la base de datos en PostgreSQL.
+
+### 4. Inicializar Air
+
+```bash
+go install github.com/cosmtrek/air@latest
+```
+```bash
+air
+```
 
 ### 4. Acceder a la API 🚀
 

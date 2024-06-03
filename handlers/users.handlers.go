@@ -6,7 +6,9 @@ import (
 
 	"github.com/GuilleFB/go-party/db"
 	"github.com/GuilleFB/go-party/models"
+	"github.com/gin-gonic/gin"
 	"github.com/gorilla/mux"
+	"golang.org/x/crypto/bcrypt"
 )
 
 func GetUsersHandler(w http.ResponseWriter, r *http.Request) {
@@ -29,6 +31,8 @@ func GetUserHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusNotFound)
 		w.Write([]byte("User not found"))
 		return
+	} else {
+		w.WriteHeader(http.StatusFound)
 	}
 
 	db.DB.Model(&user).Association("Tasks").Find(&user.Tasks) // Displays in the user json all the tasks it has
@@ -36,21 +40,76 @@ func GetUserHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(&user)
 }
 
-func PostUserHandler(w http.ResponseWriter, r *http.Request) {
-	var user models.User
+// func PostUserHandler(w http.ResponseWriter, r *http.Request) {
+func PostUserHandler(c *gin.Context) {
+	var UserInput models.User
 
-	json.NewDecoder(r.Body).Decode(&user)
+	// With Mux using net/http
+	// if err := json.NewDecoder(r.Body).Decode(&UserInput); err != nil {
+	// 	w.WriteHeader(http.StatusBadRequest)
+	// 	w.Write([]byte(err.Error()))
+	// 	return
+	// }
 
-	createdUser := db.DB.Create(&user)
-
-	err := createdUser.Error
-
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest) // 400
-		w.Write([]byte(err.Error()))
+	// With Gin
+	if err := c.ShouldBindJSON(&UserInput); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
 
-	json.NewEncoder(w).Encode(&user)
+	db.DB.Where("username=?", UserInput.Username).Find(&UserInput)
+
+	// With Mux using net/http
+	// if UserInput.ID != 0 {
+	// 	w.WriteHeader(http.StatusBadRequest)
+	// 	w.Write([]byte("username already used"))
+	// 	return
+	// }
+
+	// With Gin
+	if UserInput.ID != 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "username already used"})
+		return
+	}
+
+	passwordHash, errpassword := bcrypt.GenerateFromPassword([]byte(UserInput.Password), bcrypt.DefaultCost)
+
+	// With Mux using net/http
+	// if errpassword != nil {
+	// 	w.WriteHeader(http.StatusBadRequest)
+	// 	w.Write([]byte(errpassword.Error()))
+	// 	return
+	// }
+
+	// With Gin
+	if errpassword != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": errpassword.Error()})
+		return
+	}
+
+	// With Mux using net/http
+	// json.NewDecoder(r.Body).Decode(&UserInput)
+
+	// Overwrite only the necessary fields, keeping first_name and last_name
+	UserInput.Password = string(passwordHash)
+
+	// Saves the user in the database
+	errcreateuser := db.DB.Create(&UserInput).Error
+
+	// With Gin
+	if errcreateuser != nil {
+		c.Status(http.StatusBadRequest)
+	} else {
+		c.JSON(http.StatusOK, gin.H{"data": UserInput})
+
+	}
+
+	// With Mux using net/http
+	// if errcreateuser != nil {
+	// 	w.WriteHeader(http.StatusBadRequest) // 400
+	// 	w.Write([]byte(errcreateuser.Error()))
+	// }
+	// json.NewEncoder(w).Encode(&UserInput)
 
 }
 

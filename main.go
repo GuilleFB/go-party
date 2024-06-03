@@ -25,17 +25,21 @@ func main() {
 	// Utilizando Gin
 	rgin := gin.Default()
 	routes.RoutesTask(rgin)
+	routes.RoutesLogin(rgin)
 
 	// Utilizando Gorilla Mux
 	rmux := mux.NewRouter()
 	routes.RoutesUsers(rmux)
 	routes.RoutesIndex(rmux)
+	// routes.RoutesSignup(rmux)
 
 	mainRouter := http.NewServeMux()
 	// Añadir Gin al enrutador principal
 	mainRouter.Handle("/gin/", rgin)
 	// Añadir Gorilla Mux al enrutador principal
 	mainRouter.Handle("/mux/", rmux)
+
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 
 	port := os.Getenv("LISTEN_PORT")
 	message := fmt.Sprintf("Listening on port %s", port)
